@@ -1,5 +1,5 @@
 from service.atm_service import ATMService
-from exceptions.exceptions import CardNotRegisteredException, NoAccountsFoundException
+from exceptions.exceptions import *
 
 class ATMController():
 
@@ -33,4 +33,9 @@ class ATMController():
 
     def withdraw(self, card, acc, amount) -> int:
         """출금 기능 구현"""
-        return self.atm_service.withdraw(card, acc, amount)
+        try:
+            return self.atm_service.withdraw(card, acc, amount)
+        except InSufficientBalanceException as e:
+            print(f"Withdraw failed {e}")
+            return None
+
