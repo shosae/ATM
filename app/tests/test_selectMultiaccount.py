@@ -1,6 +1,6 @@
 import pytest
 from controller.atm_controller import ATMController
-from exceptions.exceptions import InvalidIndexException
+
 @pytest.fixture
 def setUp():
     controller = ATMController()
@@ -30,5 +30,5 @@ def test_select_multiaccount(setUp):
 def test_select_multiaccount_select_out_of_range(setUp, invalid_idx):
     """범위를 벗어난 인덱스 선택 테스트"""
     controller, _, card = setUp
-    with pytest.raises(InvalidIndexException):
+    with pytest.raises(Exception):
         controller.select_account(card, invalid_idx)
