@@ -22,9 +22,6 @@ class ATMController():
         """특정 카드의 계좌 리스트 반환"""
         try:
             return self.atm_service.get_accounts_by_card(card)
-        except InvalidAmountException as e:
-            print(f"Withdraw failed {e}")
-            return None
         except NoAccountsFoundException as e:
             print(f"ValueError: {e}")
             return []
@@ -34,7 +31,7 @@ class ATMController():
         try:
             return self.atm_service.deposit(acc, amount)
         except InvalidAmountException as e:
-            print(f"Withdraw failed {e}")
+            print(f"Deposit failed {e}")
             return None
 
 
