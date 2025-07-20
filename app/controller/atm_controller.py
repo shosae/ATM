@@ -17,19 +17,11 @@ class ATMController():
     
     def is_registered_card(self, card) -> bool:
         """카드 등록 여부"""
-        try: 
-            return self.atm_service.is_registered_card(card)
-        except CardNotRegisteredException as e:
-            print(f"ValueError: {e}")
-            return False
-         
+        return self.atm_service.is_registered_card(card)
+
     def get_accounts_by_card(self, card) -> list:
         """특정 카드의 계좌 리스트 반환"""
-        try:
-            return self.atm_service.get_accounts_by_card(card)
-        except NoAccountsFoundException as e:
-            print(f"ValueError: {e}")
-            return []
+        return self.atm_service.get_accounts_by_card(card)
 
     def deposit(self, acc, amount) -> int:
         """입금 기능 구현"""
