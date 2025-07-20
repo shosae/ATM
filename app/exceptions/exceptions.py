@@ -5,3 +5,11 @@ class CardNotRegisteredException(Exception):
 class NoAccountsFoundException(Exception):
     """등록된 계좌가 없을 때 발생하는 예외"""
     pass
+
+class InsufficientBalanceException(Exception):
+    """잔고가 부족할 때 발생하는 예외"""
+    pass
+
+class InvalidAmountException(Exception):
+    """금액이 0보다 작거나 같을 때 발생하는 예외"""
+    pass
