@@ -18,7 +18,6 @@ class ATMController():
             print(f"ValueError: {e}")
             return False
          
-    
     def get_accounts_by_card(self, card) -> list:
         """특정 카드의 계좌 리스트 반환"""
         try:
@@ -46,6 +45,6 @@ class ATMController():
         except InvalidAmountException as e:
             print(f"Withdraw failed {e}")
             return None
-        except InSufficientBalanceException as e:
+        except InsufficientBalanceException as e:
             print(f"Withdraw failed {e}")
             return None

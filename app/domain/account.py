@@ -19,7 +19,7 @@ class Account:
             raise InvalidAmountException("비정상적인 금액입니다")
 
         if self.balance < amount:
-            raise InSufficientBalanceException("잔액이 부족합니다")
+            raise InsufficientBalanceException("잔액이 부족합니다")
         self.balance -= amount
 
     def get_balance(self):
