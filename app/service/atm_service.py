@@ -1,5 +1,9 @@
 from repository.atm_repository import ATMRepository
-from exceptions.exceptions import CardNotRegisteredException, NoAccountsFoundException
+from exceptions.exceptions import (
+    CardNotRegisteredException,
+    NoAccountsFoundException,
+    InvalidIndexException,
+)
 
 
 class ATMService():
@@ -33,3 +37,11 @@ class ATMService():
         """출금 기능 구현"""
         acc.withdraw(amount)
         return acc.get_balance()
+    
+    def select_account(self, card, acc_index):
+        """카드에 연결된 계좌 중 acc_index-1에 해당하는 계좌를 반환"""
+        accounts = self.get_accounts_by_card(card)
+        if acc_index < 1 or acc_index > len(accounts):
+            raise InvalidIndexException("유효하지 않은 계좌 인덱스입니다.")
+        return accounts[acc_index-1]
+        
