@@ -31,7 +31,7 @@ def test_user_flow_insert_card_verify_pin_select_account_withdraw_deposit_multi_
     """계좌가 여러 개인 카드: 카드 삽입, PIN 인증, 계좌 선택, 입금 및 출금 통합 테스트"""
     controller = setUp
 
-    #카드 삽입
+    # 카드 삽입
     card = controller.insert_card("2345") # [A2, A3]
     
     # 비밀번호 검증
