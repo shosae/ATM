@@ -23,19 +23,29 @@ class ATMController():
         """특정 카드의 계좌 리스트 반환"""
         try:
             return self.atm_service.get_accounts_by_card(card)
+        except InvalidAmountException as e:
+            print(f"Withdraw failed {e}")
+            return None
         except NoAccountsFoundException as e:
             print(f"ValueError: {e}")
             return []
 
     def deposit(self, card, acc, amount) -> int:
         """입금 기능 구현"""
-        return self.atm_service.deposit(card, acc, amount)
+        try:
+            return self.atm_service.deposit(card, acc, amount)
+        except InvalidAmountException as e:
+            print(f"Withdraw failed {e}")
+            return None
+
 
     def withdraw(self, card, acc, amount) -> int:
         """출금 기능 구현"""
         try:
             return self.atm_service.withdraw(card, acc, amount)
+        except InvalidAmountException as e:
+            print(f"Withdraw failed {e}")
+            return None
         except InSufficientBalanceException as e:
             print(f"Withdraw failed {e}")
             return None
-

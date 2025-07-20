@@ -9,3 +9,7 @@ class NoAccountsFoundException(Exception):
 class InSufficientBalanceException(Exception):
     """잔고가 부족할 때 발생하는 예외"""
     pass
+
+class InvalidAmountException(Exception):
+    """금액이 0보다 작거나 같을 때 발생하는 예외"""
+    pass
