@@ -36,3 +36,5 @@ BearATM는 Python으로 구현된 Simple ATM(현금자동입출금기)입니다.
       ├── domain/      # Card, Account 도메인 객체
       └── tests/       # pytest 테스트 코드
     ```
+    특이사항
+   - UI 설계 시 계좌가 index대로 나열되어야 select_account가 정상 작동함
