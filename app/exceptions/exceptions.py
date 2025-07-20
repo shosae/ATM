@@ -15,5 +15,5 @@ class InvalidAmountException(Exception):
     pass
 
 class InvalidIndexException(Exception):
-    """계좌 다중 선택 시에 잘못된 입력이 있을 때 발생하는 예외(index <=0)"""
+    """계좌 다중 선택 시에 잘못된 입력이 있을 때 발생하는 예외(index < 1 또는 index > account_count)"""
     pass
