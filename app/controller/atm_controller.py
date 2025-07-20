@@ -6,8 +6,17 @@ class ATMController():
     
     def is_registered_card(self, card) -> bool:
         """카드 등록 여부"""
-        return self.atm_service.is_registered_card(card)
+        try: 
+            return self.atm_service.is_registered_card(card)
+        except Exception as e:
+            print(f"Error: {e}")
+            return False
+         
     
     def get_accounts_by_card(self, card) -> list:
         """특정 카드의 계좌 리스트 반환"""
-        return self.atm_service.get_accounts_by_card(card)
+        try:
+            return self.atm_service.get_accounts_by_card(card)
+        except Exception as e:
+            print(f"Error: {e}")
+            return None

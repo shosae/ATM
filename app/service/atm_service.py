@@ -7,8 +7,13 @@ class ATMService():
     def is_registered_card(self, card) -> bool:
         """카드 등록 여부"""
         registered_card = self.atm_repository.find_card_by_number(card.number)
-        return registered_card is not None
+        if registered_card is None:
+            raise Exception("등록된 카드가 없습니다.")
+        return True
     
     def get_accounts_by_card(self, card) -> list:
         """카드에 연결된 계좌 확인"""
-        return self.atm_repository.get_card_accounts(card.number)
+        accounts = self.atm_repository.get_card_accounts(card.number)
+        if not accounts :
+            raise Exception("등록된 계좌가 없습니다.")
+        return accounts
