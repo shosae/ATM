@@ -6,6 +6,10 @@ class NoAccountsFoundException(Exception):
     """등록된 계좌가 없을 때 발생하는 예외"""
     pass
 
+class InvalidPinException(Exception):
+    """카드 비밀번호가 틀렸을 때의 예외"""
+    pass
+
 class InsufficientBalanceException(Exception):
     """잔고가 부족할 때 발생하는 예외"""
     pass
@@ -17,3 +21,4 @@ class InvalidAmountException(Exception):
 class InvalidIndexException(Exception):
     """계좌 다중 선택 시에 잘못된 입력이 있을 때 발생하는 예외(index < 1 또는 index > account_count)"""
     pass
+
