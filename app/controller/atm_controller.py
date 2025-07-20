@@ -1,10 +1,10 @@
-from service.atm_service import ATMService
+from service.atm_service import FakeATMService
 from exceptions.exceptions import *
 
 class ATMController():
     
     def __init__(self):
-        self.atm_service = ATMService()
+        self.atm_service = FakeATMService()
     
     def insert_card(self, card_number):
         """카드 삽입, 유효한 카드인지 검증 후 반환"""

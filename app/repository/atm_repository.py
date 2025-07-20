@@ -1,9 +1,9 @@
+from repository.atm_repository_base import ATMRepository
 from domain.card import Card
 from domain.account import Account
-from typing import Optional
+from typing import Optional, List
 
-
-class ATMRepository:
+class FakeATMRepository(ATMRepository):
     def __init__(self):
         """임시 계좌 생성"""
         A1 = Account("11-11", 30)      
@@ -23,7 +23,7 @@ class ATMRepository:
                 return card
         return None
     
-    def get_card_accounts(self, card_number) -> list:
+    def get_card_accounts(self, card_number) -> List[Account]:
         """특정 카드의 계좌 리스트 반환"""
         card = self.find_card_by_number(card_number)
         if card:

@@ -1,14 +1,15 @@
-from repository.atm_repository import ATMRepository
+from repository.atm_repository import FakeATMRepository
 from exceptions.exceptions import (
     CardNotRegisteredException,
     NoAccountsFoundException,
     InvalidIndexException,
 )
+from service.atm_service_base import ATMService
 
 
-class ATMService():
+class FakeATMService(ATMService):
     def __init__(self):
-        self.atm_repository = ATMRepository() 
+        self.atm_repository = FakeATMRepository()
 
     def find_card_by_number(self, card_number):
         """카드 번호로 카드 객체 반환"""
@@ -24,7 +25,7 @@ class ATMService():
     def get_accounts_by_card(self, card) -> list:
         """카드에 연결된 계좌 확인"""
         accounts = self.atm_repository.get_card_accounts(card.number)
-        if not accounts :
+        if not accounts:
             raise NoAccountsFoundException("등록된 계좌가 없습니다.")
         return accounts
 
