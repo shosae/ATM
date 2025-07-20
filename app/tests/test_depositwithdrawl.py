@@ -5,15 +5,15 @@ from controller.atm_controller import ATMController
 
 def test_deposit():
     """입금 테스트"""
-    acc = Account("11-11", 30)
-    card = Card("1234", "4321", [acc])
     atm_controller = ATMController()
+    card = atm_controller.find_card_by_number("1234")
 
     # 카드 등록 여부 검증
     assert atm_controller.is_registered_card(card)
 
     # 2. PIN 인증
     assert card.verify_pin("4321") is True
+    acc = card.acc_list[0]  # "11-11" 계좌
 
     # 3. 계좌 연결 확인
     accounts = atm_controller.get_accounts_by_card(card)
@@ -28,15 +28,15 @@ def test_deposit():
     
 def test_withdraw():
     """출금 테스트"""
-    acc = Account("11-11", 30)
-    card = Card("1234", "4321", [acc])
     atm_controller = ATMController()
+    card = atm_controller.find_card_by_number("1234")
 
     # 카드 등록 여부 검증
     assert atm_controller.is_registered_card(card)
 
     # 2. PIN 인증
     assert card.verify_pin("4321") is True
+    acc = card.acc_list[0]  # "11-11" 계좌
 
     # 3. 계좌 연결 확인
     accounts = atm_controller.get_accounts_by_card(card)
