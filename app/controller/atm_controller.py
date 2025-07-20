@@ -19,4 +19,4 @@ class ATMController():
             return self.atm_service.get_accounts_by_card(card)
         except Exception as e:
             print(f"Error: {e}")
-            return None
+            return []
