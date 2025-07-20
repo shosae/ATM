@@ -20,18 +20,13 @@ def test_withdraw(setUp):
     controller.withdraw(acc, 20)
     assert acc.balance == 10
 
-def test_deposit_zero(setUp):
-    """비정상 입금 테스트(0$ 입금)"""
-    controller, acc = setUp
-    with pytest.raises(Exception):
-        controller.deposit(acc, 0)
-    assert acc.balance == 30
 
-def test_deposit_negative(setUp):
-    """비정상 입금 테스트(음수 입금)"""
+@pytest.mark.parametrize("amount", [0, -1])
+def test_deposit_invalid(setUp, amount):
+    """비정상 입금 테스트(0, 음수)"""
     controller, acc = setUp
     with pytest.raises(Exception):
-        controller.deposit(acc, -1)
+        controller.deposit(acc, amount)
     assert acc.balance == 30
 
 @pytest.mark.parametrize("amount", [40, 0, -1])
