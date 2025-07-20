@@ -33,3 +33,11 @@ class ATMService():
         """출금 기능 구현"""
         acc.withdraw(amount)
         return acc.get_balance()
+    
+    def select_account(self, card, acc_number):
+        """카드에 연결된 계좌 중 acc_number에 해당하는 계좌를 반환"""
+        accounts = self.get_accounts_by_card(card)
+        for acc in accounts:
+            if acc.acc_number == acc_number:
+                return acc
+        return None

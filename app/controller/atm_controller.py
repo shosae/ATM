@@ -45,3 +45,6 @@ class ATMController():
         except InsufficientBalanceException as e:
             print(f"Withdraw failed {e}")
             return None
+        
+    def select_account(self, card, acc_number):
+        return self.atm_service.select_account(card, acc_number)
