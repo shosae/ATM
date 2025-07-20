@@ -7,3 +7,11 @@ class Account:
         if isinstance(other, Account):
             return self.acc_number == other.acc_number
         return False
+    
+    def deposit(self, amount):
+        self.balance += amount
+
+    def withdraw(self, amount):
+        self.balance -= amount
+    def get_balance(self):
+        return self.get_balance
