@@ -12,14 +12,14 @@ def test_select_multiaccount(setUp):
     controller, acc, card = setUp
 
     # 첫 번째 계좌 선택
-    selected_acc = controller.select_account(card, acc[0].acc_number)
+    selected_acc = controller.select_account(card, 1)
     assert selected_acc == acc[0]
 
     controller.deposit(selected_acc, 200)
     assert selected_acc.balance == acc[0].balance  # 입금 후 잔액 확인
 
     # 두 번째 계좌 선택
-    selected_acc = controller.select_account(card, acc[1].acc_number)
+    selected_acc = controller.select_account(card, 2)
     assert selected_acc == acc[1]
 
     controller.withdraw(selected_acc, 500)
