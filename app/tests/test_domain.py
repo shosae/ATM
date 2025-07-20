@@ -1,3 +1,7 @@
+from domain.card import Card
+from domain.account import Account
+from controller.atm_controller import ATMController
+
 def test_card_is_registered():
     """카드 등록 여부 테스트"""
     acc = Account("11-11", 30)
