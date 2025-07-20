@@ -9,7 +9,7 @@ def test_user_flow_insert_card_verify_pin_select_account_deposit_single_account(
     """계좌가 1개인 카드: 카드 삽입, PIN 인증, 계좌 선택, 입금 통합 테스트"""
     controller = setUp
 
-    #카드 삽입
+    # 카드 삽입
     card = controller.insert_card("1234") # [A1]
 
     # 비밀번호 검증
