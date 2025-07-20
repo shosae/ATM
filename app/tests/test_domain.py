@@ -31,3 +31,15 @@ def test_get_accounts_by_registered_card_number():
     accounts = atm_controller.get_accounts_by_card(card)
     assert len(accounts) > 0
     assert accounts[0].acc_number == "11-11"
+
+def test_get_accounts_by_unregistered_card_number():
+    """등록되지 않은 카드에 대한 테스트"""
+    card = Card("9999", "9999", [])
+    atm_controller = ATMController()
+
+    # 카드 등록 여부 검증
+    assert not atm_controller.is_registered_card(card)
+    
+    # 연결된 계좌들이 있는지 확인
+    accounts = atm_controller.get_accounts_by_card(card)
+    assert len(accounts) ==0
