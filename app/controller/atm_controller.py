@@ -2,13 +2,13 @@ from service.atm_service import ATMService
 from exceptions.exceptions import *
 
 class ATMController():
-
-    def find_card_by_number(self, card_number):
-        """카드 번호로 카드 객체 반환"""
-        return self.atm_service.find_card_by_number(card_number)
     
     def __init__(self):
         self.atm_service = ATMService()
+    
+    def find_card_by_number(self, card_number):
+        """카드 번호로 카드 객체 반환"""
+        return self.atm_service.find_card_by_number(card_number)
     
     def is_registered_card(self, card) -> bool:
         """카드 등록 여부"""
