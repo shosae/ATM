@@ -1,6 +1,6 @@
 import pytest
 from controller.atm_controller import ATMController
-from exceptions.exceptions import InvalidIndexException
+
 @pytest.fixture
 def setUp():
     controller = ATMController()
