@@ -39,7 +39,7 @@ def test_get_accounts_by_unregistered_card_number():
 
     # 카드 등록 여부 검증
     assert not atm_controller.is_registered_card(card)
-    
-    # 연결된 계좌들이 있는지 확인
+
+    # 연결된 계좌들이 없는지 확인 
     accounts = atm_controller.get_accounts_by_card(card)
-    assert len(accounts) == 0
+    assert accounts == []
