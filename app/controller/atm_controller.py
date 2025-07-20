@@ -1,4 +1,5 @@
 from service.atm_service import ATMService
+from exceptions.exceptions import CardNotRegisteredException, NoAccountsFoundException
 
 class ATMController():
     def __init__(self):
@@ -8,11 +9,8 @@ class ATMController():
         """카드 등록 여부"""
         try: 
             return self.atm_service.is_registered_card(card)
-        except ValueError as e:
+        except CardNotRegisteredException as e:
             print(f"ValueError: {e}")
-            return False
-        except ConnectionError as e:
-            print(f"ConnectionError: {e}")
             return False
          
     
@@ -20,9 +18,6 @@ class ATMController():
         """특정 카드의 계좌 리스트 반환"""
         try:
             return self.atm_service.get_accounts_by_card(card)
-        except ValueError as e:
+        except NoAccountsFoundException as e:
             print(f"ValueError: {e}")
-            return []
-        except ConnectionError as e:
-            print(f"ConnectionError: {e}")
             return []

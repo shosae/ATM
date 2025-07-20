@@ -1,4 +1,5 @@
 from repository.atm_repository import ATMRepository
+from exceptions.exceptions import CardNotRegisteredException, NoAccountsFoundException
 
 class ATMService():
     def __init__(self):
