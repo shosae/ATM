@@ -5,6 +5,7 @@ from typing import Optional
 
 class ATMRepository:
     def __init__(self):
+        """임시 계좌 생성"""
         A1 = Account("11-11", 30)      
         A2 = Account("22-22", 500)
         A3 = Account("33-33", 1000)
