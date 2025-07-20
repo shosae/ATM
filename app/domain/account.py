@@ -23,4 +23,4 @@ class Account:
         self.balance -= amount
 
     def get_balance(self):
-        return self.get_balance
+        return self.balance
