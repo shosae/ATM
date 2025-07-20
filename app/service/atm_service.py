@@ -24,12 +24,12 @@ class ATMService():
             raise NoAccountsFoundException("등록된 계좌가 없습니다.")
         return accounts
 
-    def deposit(self, card, acc, amount) -> int:
+    def deposit(self, acc, amount) -> int:
         """입금 기능 구현"""
         acc.deposit(amount)
         return acc.get_balance()
 
-    def withdraw(self, card, acc, amount) -> int:
+    def withdraw(self, acc, amount) -> int:
         """출금 기능 구현"""
         acc.withdraw(amount)
         return acc.get_balance()

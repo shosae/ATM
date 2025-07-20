@@ -30,19 +30,19 @@ class ATMController():
             print(f"ValueError: {e}")
             return []
 
-    def deposit(self, card, acc, amount) -> int:
+    def deposit(self, acc, amount) -> int:
         """입금 기능 구현"""
         try:
-            return self.atm_service.deposit(card, acc, amount)
+            return self.atm_service.deposit(acc, amount)
         except InvalidAmountException as e:
             print(f"Withdraw failed {e}")
             return None
 
 
-    def withdraw(self, card, acc, amount) -> int:
+    def withdraw(self, acc, amount) -> int:
         """출금 기능 구현"""
         try:
-            return self.atm_service.withdraw(card, acc, amount)
+            return self.atm_service.withdraw(acc, amount)
         except InvalidAmountException as e:
             print(f"Withdraw failed {e}")
             return None
