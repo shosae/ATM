@@ -6,6 +6,11 @@ class ATMController():
     def __init__(self):
         self.atm_service = ATMService()
     
+    def insert_card(self, card_number):
+        """카드 삽입, 유효한 카드인지 검증 후 반환"""
+        card = self.find_card_by_number(card_number)
+        return card
+    
     def find_card_by_number(self, card_number):
         """카드 번호로 카드 객체 반환"""
         return self.atm_service.find_card_by_number(card_number)
@@ -28,23 +33,11 @@ class ATMController():
 
     def deposit(self, acc, amount) -> int:
         """입금 기능 구현"""
-        try:
-            return self.atm_service.deposit(acc, amount)
-        except InvalidAmountException as e:
-            print(f"Deposit failed {e}")
-            return None
-
+        return self.atm_service.deposit(acc, amount)
 
     def withdraw(self, acc, amount) -> int:
         """출금 기능 구현"""
-        try:
-            return self.atm_service.withdraw(acc, amount)
-        except InvalidAmountException as e:
-            print(f"Withdraw failed {e}")
-            return None
-        except InsufficientBalanceException as e:
-            print(f"Withdraw failed {e}")
-            return None
+        return self.atm_service.withdraw(acc, amount)
         
     def select_account(self, card, acc_index):
         """계좌 선택 기능 구현"""
