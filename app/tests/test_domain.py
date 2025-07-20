@@ -15,7 +15,7 @@ def test_card_is_registered(setUp):
     card = Card("1234", "4321", [acc])
     assert controller.is_registered_card(card)
 
-def test_verify_pin(setUp):
+def test_verify_pin():
     """카드 pin 인증 테스트"""
     card = Card("1234", "4321", [])
 
