@@ -21,3 +21,11 @@ class ATMController():
         except NoAccountsFoundException as e:
             print(f"ValueError: {e}")
             return []
+
+    def deposit(self, card, acc, amount) -> int:
+        """입금 기능 구현"""
+        return self.atm_service.deposit(card, acc, amount)
+
+    def withdraw(self, card, acc, amount) -> int:
+        """출금 기능 구현"""
+        return self.atm_service.withdraw(card, acc, amount)
