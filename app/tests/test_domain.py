@@ -42,4 +42,4 @@ def test_get_accounts_by_unregistered_card_number():
     
     # 연결된 계좌들이 있는지 확인
     accounts = atm_controller.get_accounts_by_card(card)
-    assert len(accounts) ==0
+    assert len(accounts) == 0
