@@ -9,18 +9,19 @@ class Account:
             return self.acc_number == other.acc_number
         return False
     
-    def deposit(self, amount):
+    def deposit(self, amount: int) -> int:
         if amount <= 0:
             raise InvalidAmountException("비정상적인 금액입니다")
         self.balance += amount
-
-    def withdraw(self, amount):
+        return self.balance
+    
+    def withdraw(self, amount: int) -> int:
         if amount <= 0:
             raise InvalidAmountException("비정상적인 금액입니다")
-
         if self.balance < amount:
             raise InsufficientBalanceException("잔액이 부족합니다")
         self.balance -= amount
-
-    def get_balance(self):
+        return self.balance
+    
+    def get_balance(self) -> int:
         return self.balance
