@@ -6,7 +6,7 @@ class ATMService(ABC):
         pass
 
     @abstractmethod
-    def verify_pin(self, card_number: str, pin: str)-> bool:
+    def verify_pin(self, card_number: str, pin: str) -> bool:
         pass
     
     @abstractmethod
