@@ -1,11 +1,16 @@
 import pytest
 from domain.card import Card
 from domain.account import Account
+from repository.atm_repository import FakeATMRepository
+from service.atm_service import FakeATMService
 from controller.atm_controller import ATMController
 
 @pytest.fixture
 def setUp():
-    return ATMController()
+    repo = FakeATMRepository()
+    service = FakeATMService(repo)
+    controller = ATMController(service)
+    return controller
 
 def test_card_is_registered(setUp):
     """카드 등록 여부 테스트"""

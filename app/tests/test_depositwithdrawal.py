@@ -1,9 +1,13 @@
 import pytest
+from repository.atm_repository import FakeATMRepository
+from service.atm_service import FakeATMService
 from controller.atm_controller import ATMController
 
 @pytest.fixture
 def setUp():
-    controller = ATMController()
+    repo = FakeATMRepository()
+    service = FakeATMService(repo)
+    controller = ATMController(service)
     card = controller.find_card_by_number("1234")
     acc = card.acc_list[0] # Account("11-11", 30)      
     return controller, acc
@@ -35,4 +39,4 @@ def test_withdraw_invalid(setUp, amount):
     controller, acc = setUp
     with pytest.raises(Exception):
         controller.withdraw(acc, amount)
-    assert acc.balance == 30
+    assert acc.balance == 30    
