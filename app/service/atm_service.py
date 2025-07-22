@@ -1,15 +1,14 @@
-from repository.atm_repository import FakeATMRepository
+from repository.atm_repository_base import ATMRepository 
+from service.atm_service_base import ATMService
 from exceptions.exceptions import (
     CardNotRegisteredException,
     NoAccountsFoundException,
     InvalidIndexException,
 )
-from service.atm_service_base import ATMService
-
 
 class FakeATMService(ATMService):
-    def __init__(self):
-        self.atm_repository = FakeATMRepository()
+    def __init__(self, repository: ATMRepository):
+        self.atm_repository = repository
 
     def find_card_by_number(self, card_number):
         """카드 번호로 카드 객체 반환"""
@@ -45,4 +44,3 @@ class FakeATMService(ATMService):
         if acc_index < 1 or acc_index > len(accounts):
             raise InvalidIndexException("유효하지 않은 계좌 인덱스입니다.")
         return accounts[acc_index-1]
-        
