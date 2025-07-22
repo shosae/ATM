@@ -13,28 +13,34 @@ BearATM는 Python으로 구현된 Simple ATM(현금자동입출금기)입니다.
 - **단위 테스트**: 각 기능에 대한 단위 테스트 구현
 - **통합 테스트**: 카드 삽입 → PIN 인증 → 계좌 선택 → 입금/출금 등 실제 ATM 사용 시나리오 테스트 코드 포함
 
-## 설치 및 실행 방법
+## 설치 및 실행 방법, 코드 구조
 
-1. **가상환경 설정, 실행 및 의존성 패키지 설치**
+1. **Github clone**
+    ```bash
+    git clone https://github.com/shosae/ATM/
+    ```
+2. **가상환경 설정, 실행 및 pytest 설치**
     ```bash
     python -m venv .venv
     .venv\Scripts\activate
     pip install pytest
     ```
-2. **테스트 실행**
+3. **테스트 실행**
     ```bash
     cd app
     python -m pytest
     ```
 
-3. **코드 구조**
+4. **코드 구조**
     ```
     app/
-      ├── controller/  # ATMController: ATM의 주요 동작 제어
-      ├── service/     # ATMService: 비즈니스 로직 처리
-      ├── repository/  # ATMRepository: 데이터 관리(하드코딩된 데이터)
-      ├── domain/      # Card, Account 도메인 객체
-      └── tests/       # pytest 테스트 코드
+      ├── controller/       # ATMController: 외부 API의 접점. 요청/응답 처리
+      ├── service/          # ATMService: 핵심 비즈니스 로직 처리
+      ├── repository/       # ATMRepository: 데이터 영속성 관리
+      ├── domain/           # Card, Account: 도메인 비즈니스 규칙을 담은 객체
+      ├── exceptions/       # 커스텀 예외 정의
+      ├── tests/            # pytest 테스트 코드
+      ├── error_handler     # API 예외 처리 데코레이터
+      └── exception_handler # 예외별 에러 응답 생성
+
     ```
-    특이사항
-   - UI 설계 시 계좌가 index대로 나열되어야 select_account가 정상 작동함
