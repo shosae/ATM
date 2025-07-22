@@ -2,25 +2,21 @@ from abc import ABC, abstractmethod
 
 class ATMService(ABC):
     @abstractmethod
-    def find_card_by_number(self, card_number):
+    def is_registered_card(self, card_number: str) -> bool:
         pass
 
     @abstractmethod
-    def is_registered_card(self, card) -> bool:
+    def verify_pin(self, card_number: str, pin: str)-> bool:
+        pass
+    
+    @abstractmethod
+    def get_accounts_by_card(self, card: str) -> list[str]:
         pass
 
     @abstractmethod
-    def get_accounts_by_card(self, card) -> list:
+    def deposit(self, account_number: str, amount: int) -> int:
         pass
 
     @abstractmethod
-    def deposit(self, acc, amount) -> int:
-        pass
-
-    @abstractmethod
-    def withdraw(self, acc, amount) -> int:
-        pass
-
-    @abstractmethod
-    def select_account(self, card, acc_index):
+    def withdraw(self, account_number: str, amount: int) -> int:
         pass

@@ -2,45 +2,38 @@ from repository.atm_repository_base import ATMRepository
 from service.atm_service_base import ATMService
 from exceptions.exceptions import (
     CardNotRegisteredException,
-    NoAccountsFoundException,
-    InvalidIndexException,
+    NoAccountsFoundException
 )
 
 class FakeATMService(ATMService):
     def __init__(self, repository: ATMRepository):
         self.atm_repository = repository
 
-    def find_card_by_number(self, card_number):
-        """카드 번호로 카드 객체 반환"""
-        return self.atm_repository.find_card_by_number(card_number)
-
-    def is_registered_card(self, card) -> bool:
-        """카드 등록 여부"""
-        registered_card = self.atm_repository.find_card_by_number(card.number)
-        if registered_card is None:
-            raise CardNotRegisteredException("등록된 카드가 없습니다.")
+    def is_registered_card(self, card_number: str) -> bool:
+        card = self.atm_repository.find_card_by_number(card_number)
+        if card is None:
+            raise CardNotRegisteredException("등록된 카드가 없습니다")
         return True
+
+    def verify_pin(self, card_number: str, pin: str)-> bool:
+        card = self.atm_repository.find_card_by_number(card_number)
+        return card.verify_pin(pin)
     
-    def get_accounts_by_card(self, card) -> list:
-        """카드에 연결된 계좌 확인"""
-        accounts = self.atm_repository.get_card_accounts(card.number)
+    def get_balance(self, acc_number: str)-> int:
+        acc = self.atm_repository.find_account_by_number(acc_number)
+        return acc.get_balance()
+    
+    def get_accounts_by_card(self, card_number: str) -> list[str]:
+        card = self.atm_repository.find_card_by_number(card_number)
+        accounts = card.get_accounts()
         if not accounts:
-            raise NoAccountsFoundException("등록된 계좌가 없습니다.")
+            raise NoAccountsFoundException("등록된 계좌가 없습니다")
         return accounts
 
-    def deposit(self, acc, amount) -> int:
-        """입금 기능 구현"""
-        acc.deposit(amount)
-        return acc.get_balance()
-
-    def withdraw(self, acc, amount) -> int:
-        """출금 기능 구현"""
-        acc.withdraw(amount)
-        return acc.get_balance()
+    def deposit(self, acc_number: str, amount: int) -> int:
+        acc = self.atm_repository.find_account_by_number(acc_number)
+        return acc.deposit(amount)
     
-    def select_account(self, card, acc_index):
-        """카드에 연결된 계좌 중 acc_index-1에 해당하는 계좌를 반환"""
-        accounts = self.get_accounts_by_card(card)
-        if acc_index < 1 or acc_index > len(accounts):
-            raise InvalidIndexException("유효하지 않은 계좌 인덱스입니다.")
-        return accounts[acc_index-1]
+    def withdraw(self, acc_number: str, amount: int) -> int:
+        acc = self.atm_repository.find_account_by_number(acc_number)
+        return acc.withdraw(amount)
