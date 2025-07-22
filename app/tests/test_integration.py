@@ -3,7 +3,6 @@ from repository.atm_repository import FakeATMRepository
 from service.atm_service import FakeATMService
 from controller.atm_controller import ATMController
 
-
 @pytest.fixture
 def setUp():
     repo = FakeATMRepository()
