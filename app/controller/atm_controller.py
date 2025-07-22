@@ -1,35 +1,31 @@
 from service.atm_service_base import ATMService
-from exceptions.exceptions import *
+from error_handler import api_error_handler
+from typing import List
 
 class ATMController():
     def __init__(self, service: ATMService):
         self.atm_service = service
+    """error_handler를 사용하여 발생되는 error를 캐치"""
+    @api_error_handler
+    def insert_card(self, card_number: str) -> None:
+        self.atm_service.is_registered_card(card_number)
     
-    def insert_card(self, card_number):
-        """카드 삽입, 유효한 카드인지 검증 후 반환"""
-        card = self.find_card_by_number(card_number)
-        return card
-    
-    def find_card_by_number(self, card_number):
-        """카드 번호로 카드 객체 반환"""
-        return self.atm_service.find_card_by_number(card_number)
-    
-    def is_registered_card(self, card) -> bool:
-        """카드 등록 여부"""
-        return self.atm_service.is_registered_card(card)
-
-    def get_accounts_by_card(self, card) -> list:
-        """특정 카드의 계좌 리스트 반환"""
-        return self.atm_service.get_accounts_by_card(card)
-
-    def deposit(self, acc, amount) -> int:
-        """입금 기능 구현"""
-        return self.atm_service.deposit(acc, amount)
-
-    def withdraw(self, acc, amount) -> int:
-        """출금 기능 구현"""
-        return self.atm_service.withdraw(acc, amount)
+    @api_error_handler
+    def verify_pin(self, card_number: str, pin: str) -> None:
+        self.atm_service.verify_pin(card_number, pin)
         
-    def select_account(self, card, acc_index):
-        """계좌 선택 기능 구현"""
-        return self.atm_service.select_account(card, acc_index)
+    @api_error_handler
+    def get_accounts_by_card(self, card_number: str) -> List[str]:
+        return self.atm_service.get_accounts_by_card(card_number)
+
+    @api_error_handler
+    def deposit(self, acc_number: str, amount: int) -> int:
+        return self.atm_service.deposit(acc_number, amount)
+        
+    @api_error_handler
+    def withdraw(self, acc_number: str, amount: int) -> int:
+        return self.atm_service.withdraw(acc_number, amount)
+
+    @api_error_handler
+    def get_balance(self, acc_number: str) -> int:
+        return self.atm_service.get_balance(acc_number)
