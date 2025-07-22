@@ -5,6 +5,7 @@ from typing import List
 class ATMController():
     def __init__(self, service: ATMService):
         self.atm_service = service
+        
     """error_handler를 사용하여 발생되는 error를 캐치"""
     @api_error_handler
     def insert_card(self, card_number: str) -> None:
