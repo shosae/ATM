@@ -40,7 +40,7 @@ BearATM는 Python으로 구현된 Simple ATM(현금자동입출금기)입니다.
       ├── domain/           # Card, Account: 도메인 비즈니스 규칙을 담은 객체
       ├── exceptions/       # 커스텀 예외 정의
       ├── tests/            # pytest 테스트 코드
-      ├── error_handler     # API 예외 처리 데코레이터
-      └── exception_handler # 예외별 에러 응답 생성
+      ├── error_handler.py     # API 예외 처리 데코레이터
+      └── exception_handler.py # 예외별 에러 응답 생성
 
     ```
