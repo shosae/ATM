@@ -15,11 +15,11 @@ class FakeATMService(ATMService):
             raise CardNotRegisteredException("등록된 카드가 없습니다")
         return True
 
-    def verify_pin(self, card_number: str, pin: str)-> bool:
+    def verify_pin(self, card_number: str, pin: str) -> bool:
         card = self.atm_repository.find_card_by_number(card_number)
         return card.verify_pin(pin)
     
-    def get_balance(self, acc_number: str)-> int:
+    def get_balance(self, acc_number: str) -> int:
         acc = self.atm_repository.find_account_by_number(acc_number)
         return acc.get_balance()
     
