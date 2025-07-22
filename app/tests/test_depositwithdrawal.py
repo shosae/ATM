@@ -8,7 +8,7 @@ def setUp():
     repo = FakeATMRepository()
     service = FakeATMService(repo)
     controller = ATMController(service)
-    acc = repo.db_accounts[0]
+    acc = repo.db_accounts[0] # Account("11-11", 30)
     return controller, acc.acc_number, acc.balance
 
 def test_deposit(setUp):
