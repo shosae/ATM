@@ -2,7 +2,6 @@ from service.atm_service_base import ATMService
 from exceptions.exceptions import *
 
 class ATMController():
-    
     def __init__(self, service: ATMService):
         self.atm_service = service
     
