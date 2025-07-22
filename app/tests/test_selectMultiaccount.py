@@ -1,9 +1,14 @@
 import pytest
+from repository.atm_repository import FakeATMRepository
+from service.atm_service import FakeATMService
 from controller.atm_controller import ATMController
+
 
 @pytest.fixture
 def setUp():
-    controller = ATMController()
+    repo = FakeATMRepository()
+    service = FakeATMService(repo) 
+    controller = ATMController(service)
     card = controller.find_card_by_number("2345")
     acc = card.acc_list # [A2, A3]     
     return controller, acc, card

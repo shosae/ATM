@@ -1,9 +1,15 @@
 import pytest
+from repository.atm_repository import FakeATMRepository
+from service.atm_service import FakeATMService
 from controller.atm_controller import ATMController
+
 
 @pytest.fixture
 def setUp():
-    return ATMController()
+    repo = FakeATMRepository()
+    service = FakeATMService(repo)
+    controller = ATMController(service)
+    return controller
 
 def test_user_flow_insert_card_verify_pin_select_account_deposit_single_account(setUp):
     """계좌가 1개인 카드: 카드 삽입, PIN 인증, 계좌 선택, 입금 통합 테스트"""
