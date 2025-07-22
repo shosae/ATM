@@ -8,35 +8,48 @@ def setUp():
     repo = FakeATMRepository()
     service = FakeATMService(repo)
     controller = ATMController(service)
-    card = controller.find_card_by_number("1234")
-    acc = card.acc_list[0] # Account("11-11", 30)      
-    return controller, acc
+    acc = repo.db_accounts[0] # Account("11-11", 30)
+    return controller, acc.acc_number, acc.balance
 
 def test_deposit(setUp):
     """정상 입금 테스트"""
-    controller, acc = setUp
-    controller.deposit(acc, 40)
-    assert acc.balance == 70
+    controller, acc_num, bal = setUp
+    res = controller.deposit(acc_num, 40)
+    assert res["success"] is True
+    assert res["data"] == bal + 40
 
 def test_withdraw(setUp):
     """정상 출금 테스트"""
-    controller, acc = setUp
-    controller.withdraw(acc, 20)
-    assert acc.balance == 10
+    controller, acc_num, bal = setUp
+    res = controller.withdraw(acc_num, 20)
+    assert res["success"] is True
+    assert res["data"] == bal - 20
 
+def test_get_balance(setUp):
+    """잔액 확인 테스트"""
+    controller, acc_num, _ = setUp
+    res = controller.get_balance(acc_num)
+    assert res["success"] is True
 
 @pytest.mark.parametrize("amount", [0, -1])
 def test_deposit_invalid(setUp, amount):
     """비정상 입금 테스트(0, 음수)"""
-    controller, acc = setUp
-    with pytest.raises(Exception):
-        controller.deposit(acc, amount)
-    assert acc.balance == 30
+    controller, acc_num, _ = setUp
+    res = controller.deposit(acc_num, amount)
+    assert res["success"] is False
+    assert res["error"] == "비정상적인 금액입니다"
 
-@pytest.mark.parametrize("amount", [40, 0, -1])
+@pytest.mark.parametrize("amount", [0, -1])
 def test_withdraw_invalid(setUp, amount):
-    """비정상 출금 테스트(잔고 부족, 0, 음수)"""
-    controller, acc = setUp
-    with pytest.raises(Exception):
-        controller.withdraw(acc, amount)
-    assert acc.balance == 30    
+    """비정상 출금 테스트(0, 음수)"""
+    controller, acc_num, _ = setUp
+    res = controller.withdraw(acc_num, amount)
+    assert res["success"] is False
+    assert res["error"] == "비정상적인 금액입니다"
+
+def test_withdraw_insufficient(setUp):
+    """비정상 출금 테스트(잔고 부족)"""
+    controller, acc_num, _ = setUp
+    res = controller.withdraw(acc_num, 40)
+    assert res["success"] is False
+    assert res["error"] == "잔액이 부족합니다"
