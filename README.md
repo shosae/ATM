@@ -44,3 +44,69 @@ BearATM는 Python으로 구현된 Simple ATM(현금자동입출금기)입니다.
       └── exception_handler.py # 예외별 에러 응답 생성
 
     ```
+## 📝 시퀀스 다이어그램 (Sequence Diagram)
+ATM의 핵심 동작인 입금(성공)과 출금(실패) 시나리오를 통해 전체 아키텍처의 상호작용 흐름을 보여줍니다.
+
+```mermaid
+sequenceDiagram
+    actor Client
+    participant C as ATMController
+    participant EH as @api_error_handler
+    participant S as ATMService
+    participant R as ATMRepository
+    participant D_Acc as Account (Domain)
+    participant GEH as global_exception_handler
+
+    Client->>C: deposit("11-11", 100) 요청
+    activate C
+    C->>EH: @api_error_handler 실행
+    activate EH
+    EH->>C: 원본 deposit() 호출 (try 블록)
+    C->>S: deposit("11-11", 100)
+    activate S
+    S->>R: find_account_by_number("11-11")
+    activate R
+    R-->>S: Account("11-11", 30) 객체 반환
+    deactivate R
+    S->>D_Acc: deposit(100)
+    activate D_Acc
+    Note right of D_Acc: self.balance += 100 (30 -> 130)
+    D_Acc-->>S: 새로운 잔액 130 반환
+    deactivate D_Acc
+    S-->>C: 130 반환
+    deactivate S
+    C-->>EH: 결과 130 반환
+    EH-->>Client: {"success": true, "data": 130} 최종 응답
+    deactivate EH
+    deactivate C
+
+    %% ---- 잔액 부족 시나리오 ----
+    Client->>C: withdraw("11-11", 200) 요청
+    activate C
+    C->>EH: @api_error_handler 실행
+    activate EH
+    EH->>C: 원본 withdraw() 호출 (try 블록)
+    C->>S: withdraw("11-11", 200)
+    activate S
+    S->>R: find_account_by_number("11-11")
+    activate R
+    R-->>S: Account("11-11", 130) 객체 반환
+    deactivate R
+    S->>D_Acc: withdraw(200)
+    activate D_Acc
+    Note right of D_Acc: self.balance(130) < 200 → 예외 발생
+    D_Acc-->>S: raise InsufficientBalanceException
+    deactivate D_Acc
+    S-->>C: 예외 전파
+    deactivate S
+    C-->>EH: 예외 전파
+
+    Note over EH, GEH: except Exception as e:
+    EH->>GEH: global_exception_handler(e) 호출
+    activate GEH
+    GEH-->>EH: {"success": false, "error": "잔액이 부족합니다"} 반환
+    deactivate GEH
+    EH-->>Client: 최종 에러 응답
+    deactivate EH
+    deactivate C
+
